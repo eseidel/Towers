@@ -5,7 +5,7 @@ extends Spatial
 
 var MISSLE_SPEED = 70
 var MISSLE_DAMAGE = 15
-var TARGET = null
+var TARGET_REF = null
 
 const KILL_TIMER = 4
 var timer = 0
@@ -21,16 +21,21 @@ func _ready():
 	pass
 
 func _physics_process(delta):
+	var target = TARGET_REF.get_ref()
+	if !target:
+		queue_free()
+		return
+	
 	# Godot uses -z for "forward"
 	# https://godotengine.org/qa/23054/look_at-looks-exactly-at-the-opposite-direction
-	var target_location = TARGET.global_transform.origin
+	var target_location = target.global_transform.origin
 	look_at(target_location, Vector3.UP)
 	var forward_dir = -global_transform.basis.z.normalized()
 	global_translate(forward_dir * MISSLE_SPEED * delta)
 
 	var distance_to_target = target_location - global_transform.origin
 	if distance_to_target.length() < HIT_RADIUS:
-		collided(TARGET)
+		collided(target)
 
 	timer += delta
 	if timer >= KILL_TIMER:
