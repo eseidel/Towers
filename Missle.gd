@@ -43,8 +43,8 @@ func _physics_process(delta):
 
 func collided(body):
 	if hit_something == false:
-		if body.has_method("missle_hit"):
-			body.missle_hit(MISSLE_DAMAGE)
+		if body.has_method("hit"):
+			body.hit(self, MISSLE_DAMAGE)
 
 	hit_something = true
 	queue_free()

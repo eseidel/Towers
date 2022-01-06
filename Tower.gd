@@ -111,7 +111,7 @@ func set_health(new_health):
 	HEALTH = new_health
 	$"Waypoint Anchor/Waypoint".set_text("%s / %s" % [HEALTH, MAX_HEALTH])
 
-func missle_hit(damage):
+func hit(from, damage):
 	set_health(HEALTH - damage)
 	if HEALTH < 0:
 		die()

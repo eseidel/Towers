@@ -190,7 +190,7 @@ func die():
 	# should do some sort of animation
 	queue_free()
 
-func missle_hit(damage):
+func hit(from, damage):
 	HEALTH -= damage
 	if HEALTH < 0:
 		die()
