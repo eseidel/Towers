@@ -5,7 +5,7 @@ extends Spatial
 enum Team {BLUE, RED}
 export(Team) var TEAM setget set_team
 
-export var DETECT_RADIUS = 10
+export var DETECT_RADIUS = 15
 var COLLISION_RADIUS = 2
 var DEBUG_HALF_THICKNESS = 0.1
 
