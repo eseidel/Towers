@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Tower.gd" type="Script" id=1]
 [ext_resource path="res://Blue.tres" type="Material" id=2]
+[ext_resource path="res://Waypoint.gd" type="Script" id=3]
 
 [sub_resource type="CapsuleMesh" id=1]
 
@@ -22,4 +23,20 @@ shape = SubResource( 2 )
 
 [node name="Debug" type="CSGTorus" parent="DetectRadius"]
 
-[connection signal="area_entered" from="DetectRadius" to="." method="_on_DetectRadius_area_entered"]
+[node name="Waypoint Anchor" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.71236, 0 )
+
+[node name="Waypoint" type="Control" parent="Waypoint Anchor"]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Waypoint Anchor/Waypoint"]
+margin_right = 40.0
+margin_bottom = 14.0
+__meta__ = {
+"_edit_use_anchors_": false
+}

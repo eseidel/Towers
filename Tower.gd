@@ -14,7 +14,8 @@ var ATTACK_DELAY = 1
 var MOVE_SPEED = 5
 
 var DAMAGE = 150
-var HEALTH = 5000
+var MAX_HEALTH = 5000
+var HEALTH = MAX_HEALTH setget set_health
 
 var since_last_target_update = INF
 var TARGET_UPDATE_DELAY = .25
@@ -38,6 +39,7 @@ func set_team(new_team):
 
 func _ready():
 	set_team(TEAM)
+	set_health(MAX_HEALTH)
 	$DetectRadius/Shape.shape.radius = DETECT_RADIUS
 	$DetectRadius/Debug.inner_radius = DETECT_RADIUS - DEBUG_HALF_THICKNESS
 	$DetectRadius/Debug.outer_radius = DETECT_RADIUS + DEBUG_HALF_THICKNESS
@@ -104,7 +106,12 @@ func die():
 	# should do some sort of animation
 	queue_free()
 
+
+func set_health(new_health):
+	HEALTH = new_health
+	$"Waypoint Anchor/Waypoint".set_text("%s / %s" % [HEALTH, MAX_HEALTH])
+
 func missle_hit(damage):
-	HEALTH -= damage
+	set_health(HEALTH - damage)
 	if HEALTH < 0:
 		die()
